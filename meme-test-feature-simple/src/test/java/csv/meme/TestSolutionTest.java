@@ -5,30 +5,52 @@ import static org.junit.Assert.*;
 import com.comcast.csv.meme.SolutionTest;
 import com.comcast.csv.meme.SolutionUtil;
 
+import java.io.FileNotFoundException;
+
 import org.junit.Test;
+import org.testng.annotations.ExpectedExceptions;
 
 
 public class TestSolutionTest {
 
 	SolutionTest st = new SolutionTest();
 	
-	@Test
-	public void test() {
+	public void setUp( ) { 
+		this.st = new SolutionTest( );  
 		
+	} 
+	
+	public void tearDown( ) {
+		this.st = null; 
 		
-		
-	}
+	} 
+	
 	
 	@Test
 	public void testInterviewSolution(){
-		assertEquals(st.interviewSolution(), 1);
+		try {
+			assertEquals(st.interviewSolution(), 1);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
-	
 
 	@Test
 	public void testWriteToFileSystem(){
-		assertEquals(SolutionUtil.writeToFileSystem(SolutionUtil.filePath, SolutionUtil.createData()),1);
+		try {
+			assertEquals(SolutionUtil.writeToFileSystem(SolutionUtil.filePath, SolutionUtil.createData()),1);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Test(expected = FileNotFoundException.class)
+	public void testWriteToFileSystemIOException() throws FileNotFoundException{
+		SolutionUtil.writeToFileSystem("", SolutionUtil.createData());
 		
 	}
 }

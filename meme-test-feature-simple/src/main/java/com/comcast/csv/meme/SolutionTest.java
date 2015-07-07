@@ -12,6 +12,7 @@ import com.comcast.csv.interview.problems.StringParsingProblem;
 
 import java.awt.Rectangle;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
@@ -36,10 +37,14 @@ public class SolutionTest {
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) { 
 
-		interviewSolution();
+		try {
+			interviewSolution();
+		} catch (FileNotFoundException e) {
+			LOGGER.info(e.getMessage());
+		}
 	}
 
-	public static int interviewSolution() {
+	public static int interviewSolution() throws FileNotFoundException{
 		
 		JSONArray jsonArray = SolutionUtil.createData();
 		

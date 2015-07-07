@@ -2,6 +2,7 @@ package com.comcast.csv.meme;
 
 import com.comcast.csv.interview.problems.LoopProblem;
 
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -36,21 +37,29 @@ public class SolutionUtil {
 	 * @param filePath
 	 * @param jsonObj
 	 */
-	public static int writeToFileSystem(String filePath, JSONArray jsonArray) {
+	public static int writeToFileSystem(String filePath, JSONArray jsonArray) throws FileNotFoundException{
 		// Write to fileSystem
 		FileWriter file = null;
 		try {
 			file = new FileWriter(filePath);
 			file.write(jsonArray.toJSONString());
+			
+			
 		} catch (IOException e) {
 			LOGGER.error(e.getMessage());
 			return -1;
 		} finally {
-			try {
+			try{	
+				if(file==null){
+					throw new FileNotFoundException();
+				}
 				file.flush();
 				file.close();
 			} catch (IOException e) {
 				LOGGER.error(e.getMessage());
+				if(file==null){
+					throw new FileNotFoundException();
+				}
 				return -1;
 			}
 		}
