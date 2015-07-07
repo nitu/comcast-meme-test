@@ -46,7 +46,7 @@ public class SolutionTest {
 		jsonArray.add(getJson("Anuj", 1989, new String[] {
 				"Engine Design", "4", "IITKGP" }));
 
-		String flieSystemPath = "C://Users//nsaksena//Downloads//meme-test-feature-simple[1] (1)//meme-test-feature-simple//src//main//resources//json//meme.json";
+		String flieSystemPath = "C:\\comcast-meme-test\\meme-test-feature-simple\\src\\main\\resources\\json\\meme.json";
 		writeToFileSystem(flieSystemPath, jsonArray);
 
 		// Read JSONObjects from file system
