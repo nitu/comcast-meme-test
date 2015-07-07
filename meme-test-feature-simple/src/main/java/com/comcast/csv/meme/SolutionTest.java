@@ -28,26 +28,22 @@ import org.slf4j.LoggerFactory;
 public class SolutionTest {
 	private static final Logger LOGGER = LoggerFactory
 			.getLogger(LoopProblem.class);
-
+	
+	
 	/**
 	 * @param args
 	 */
 	@SuppressWarnings("unchecked")
 	public static void main(String[] args) { 
 
-		// Create Array of JSON objects
-		JSONArray jsonArray = new JSONArray();
-		jsonArray.add(getJson("Nitu", 1981, new String[] { "Java", "11",
-				"GU" }));
-		jsonArray.add(getJson("Neeraj", 1980, new String[] {
-				"Salesforce", "10", "GU" }));
-		jsonArray.add(getJson("Priyanka", 1977, new String[] {
-				"Routing Protocol", "15", "NU" }));
-		jsonArray.add(getJson("Anuj", 1989, new String[] {
-				"Engine Design", "4", "IITKGP" }));
+		interviewSolution();
+	}
 
-		String flieSystemPath = "C:\\comcast-meme-test\\meme-test-feature-simple\\src\\main\\resources\\json\\meme.json";
-		writeToFileSystem(flieSystemPath, jsonArray);
+	public static int interviewSolution() {
+		
+		JSONArray jsonArray = SolutionUtil.createData();
+		
+		SolutionUtil.writeToFileSystem(SolutionUtil.filePath, jsonArray);
 
 		// Read JSONObjects from file system
 		FileJsonResourceProblem fileJsonResourceProblem = new FileJsonResourceProblem();
@@ -55,7 +51,7 @@ public class SolutionTest {
 
 		try {
 			listMemeObjects = fileJsonResourceProblem.readFromFile(new File(
-					flieSystemPath));
+					SolutionUtil.filePath));
 			LOGGER.info("FileJsonResourceProblem- FileSystem Length: "
 					+ listMemeObjects.size());
 
@@ -116,52 +112,9 @@ public class SolutionTest {
 								.getDistanceFromCityCenter("85e@325 Tasman Dr.")
 						: "Invalid Address"));
 
+		
+		return 1;
 	}
 
-	/**
-	 * 
-	 * @param filePath
-	 * @param jsonObj
-	 */
-	private static void writeToFileSystem(String filePath, JSONArray jsonArray) {
-		// Write to fileSystem
-		FileWriter file = null;
-		try {
-			file = new FileWriter(filePath);
-			file.write(jsonArray.toJSONString());
-		} catch (IOException e) {
-			LOGGER.error(e.getMessage());
-		} finally {
-			try {
-				file.flush();
-				file.close();
-			} catch (IOException e) {
-				LOGGER.error(e.getMessage());
-			}
-		}
-	}
-
-	/**
-	 * 
-	 * @param name
-	 * @param year
-	 * @param tags
-	 * @return
-	 */
-	@SuppressWarnings("unchecked")
-	private static JSONObject getJson(String name, int year,
-			String[] tags) {
-		// Create JSONObject
-		JSONObject json = new JSONObject();
-		JSONArray jsontags = new JSONArray();
-		for (String tag : tags) {
-			jsontags.add(tag);
-		}
-		json.put("name", name);
-		json.put("year", String.valueOf(year));
-		json.put("tags", jsontags);
-
-		return json;
-	}
 
 }
